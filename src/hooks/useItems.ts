@@ -1,9 +1,8 @@
 import useSWR from "swr";
 import {Item} from "../models/item";
-
-// @ts-ignore
-const fetcher = (...args) => fetch(...args).then(async (res) => ({ json: (await res.json()) as Item[], headers: res.headers }))
+import {fetcher} from "../utils/fetcher";
+import {endpointUrl} from "../utils/env";
 
 export const useItems = () => {
-  return useSWR('http://localhost:8110/PenguinStats/api/v2/items?server=CN', fetcher)
+  return useSWR(endpointUrl('/api/v2/items?server=CN'), (url: string) => fetcher<Item>(url))
 }
