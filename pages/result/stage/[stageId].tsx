@@ -1,10 +1,7 @@
 import {GetStaticPaths, GetStaticProps, NextPage} from "next";
-import {Item} from "models/item";
-import useSWR from "swr";
-import {useRouter} from "next/router";
 import {ParsedUrlQuery} from "querystring";
-import {useItems} from "../../../src/hooks/useItems";
-import {useStages} from "../../../src/hooks/useStages";
+import {useStages} from "hooks/useStages";
+import {Stage} from "models/stage";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -27,13 +24,15 @@ const StageDetail: NextPage<StageDetailProps> = ({ params }) => {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  const items = data.json as Item[]
-  const item = items.find(el => el.stageId === params?.stageId)
+  const stages = data.json as Stage[]
+  const stage = stages.find(el => el.stageId === params?.stageId)
+
+  if (!stage) throw new Error("Stage not found with stageId `" + params?.stageId + "`. Expected to be one of the following: " + stages.map(el => el.stageId).join(', '))
 
   return (
     <div>
       <h1>
-        {item.code}
+        {stage.code}
 
         <small style={{
           background: "rgba(0, 0, 0, .05",
@@ -42,7 +41,7 @@ const StageDetail: NextPage<StageDetailProps> = ({ params }) => {
           padding: ".25rem .75rem",
           marginLeft: '1rem'
         }}>
-          stage <code>{item.stageId}</code>
+          stage <code>{stage.stageId}</code>
         </small>
 
         <small style={{
@@ -52,11 +51,11 @@ const StageDetail: NextPage<StageDetailProps> = ({ params }) => {
           padding: ".25rem .75rem",
           marginLeft: '.5rem'
         }}>
-          zone <code>{item.zoneId}</code>
+          zone <code>{stage.zoneId}</code>
         </small>
       </h1>
       <h6>Backend Response Generated at: {data.headers.get('Response-Time')}</h6>
-      <code><pre>{JSON.stringify(item, null, 4)}</pre></code>
+      <code><pre>{JSON.stringify(stage, null, 4)}</pre></code>
     </div>
   )
 }

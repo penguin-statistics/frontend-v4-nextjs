@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import {useRouter} from "next/router";
 import styles from '../styles/Home.module.css'
 import { SWRConfig } from "swr";
+import {CustomizedErrorBoundary} from "components/error-boundary/error-boundary";
 
 function PenguinApp({ Component, pageProps }: AppProps) {
   const { push } = useRouter()
@@ -55,7 +56,9 @@ function PenguinApp({ Component, pageProps }: AppProps) {
       <main style={{
         margin: '4rem'
       }}>
-        <Component {...pageProps} />
+        <CustomizedErrorBoundary>
+          <Component {...pageProps} />
+        </CustomizedErrorBoundary>
       </main>
     </>
   )

@@ -1,7 +1,7 @@
 import {GetStaticPaths, GetStaticProps, NextPage} from "next";
-import {Item} from "../../../src/models/item";
+import {Item} from "models/item";
 import {ParsedUrlQuery} from "querystring";
-import {useItems} from "../../../src/hooks/useItems";
+import {useItems} from "hooks/useItems";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -26,6 +26,8 @@ const ItemDetail: NextPage<ItemDetailProps> = ({ params }) => {
 
   const items = data.json as Item[]
   const item = items.find(el => el.itemId === params?.itemId)
+
+  if (!item) throw new Error("Item not found with itemId `" + params?.itemId + "`. Expected to be one of the following: " + items.map(el => el.itemId).join(', '))
 
   return (
     <div>
