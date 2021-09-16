@@ -6,7 +6,7 @@ import { SWRConfig } from "swr";
 import {CustomizedErrorBoundary} from "components/error-boundary/error-boundary";
 
 function PenguinApp({ Component, pageProps }: AppProps) {
-  const { push } = useRouter()
+  const { push, route } = useRouter()
 
   const routes = [
     {
@@ -56,7 +56,7 @@ function PenguinApp({ Component, pageProps }: AppProps) {
       <main style={{
         margin: '4rem'
       }}>
-        <CustomizedErrorBoundary>
+        <CustomizedErrorBoundary key={route}>
           <Component {...pageProps} />
         </CustomizedErrorBoundary>
       </main>
