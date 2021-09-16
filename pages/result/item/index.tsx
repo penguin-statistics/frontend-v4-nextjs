@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import {useRouter} from "next/router";
-import styles from './/styles/Home.module.css'
+import styles from '../../../styles/Home.module.css'
 import {useItems} from "hooks/useItems";
 
 interface ItemIndexProps {}
