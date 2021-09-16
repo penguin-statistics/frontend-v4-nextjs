@@ -1,8 +1,5 @@
-import {useEffect, useState} from "react";
 import {GetStaticPaths, GetStaticProps, NextPage} from "next";
-import {Item} from "models/item";
-import useSWR from "swr";
-import {useRouter} from "next/router";
+import {Item} from "../../../src/models/item";
 import {ParsedUrlQuery} from "querystring";
 import {useItems} from "../../../src/hooks/useItems";
 
