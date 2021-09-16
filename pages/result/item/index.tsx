@@ -1,7 +1,7 @@
-import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {NextPage} from "next";
 import {useRouter} from "next/router";
-import styles from '../../../styles/Home.module.css'
-import {useItems} from "../../../src/hooks/useItems";
+import styles from './/styles/Home.module.css'
+import {useItems} from "hooks/useItems";
 
 interface ItemIndexProps {}
 

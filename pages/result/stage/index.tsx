@@ -1,7 +1,7 @@
-import {GetStaticProps, NextPage} from "next";
+import {NextPage} from "next";
 import {useRouter} from "next/router";
-import styles from '../../../styles/Home.module.css'
-import {useStages} from "../../../src/hooks/useStages";
+import styles from './/styles/Home.module.css'
+import {useStages} from "hooks/useStages";
 
 interface StageIndexProps {}
 
@@ -21,10 +21,10 @@ const StageIndex: NextPage<StageIndexProps> = () => {
       <ul className={styles['list']}>
         {
           data.json.map(el => (
-            <li className={styles['list-item']} key={el.itemId}>
+            <li className={styles['list-item']} key={el.stageId}>
               <a className={styles['btn']} style={{
                 margin: '.5rem'
-              }} href={'stage/' + el.itemId} onClick={evt => {
+              }} href={'stage/' + el.stageId} onClick={evt => {
                 evt.preventDefault()
                 router.push('stage/' + el.stageId)
               }}>
